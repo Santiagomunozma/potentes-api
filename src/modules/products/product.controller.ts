@@ -17,6 +17,7 @@ const createProduct = async (req: Request, res: Response) => {
 
 const updateProduct = async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params;
+    
     const result = updateProductSchema.safeParse({ ...req.body, id });
 
     if (!result.success) {

@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import { createSellSchema, updateSellSchema } from './sell.validation';
 import { sellService } from './sell.service';
 import { Sell } from './sell.model';
+import { productsService } from '../products/product.service';
+import { Product } from '../products/product.model';
 
 const createSell = async (req: Request, res: Response) => {
     const result = createSellSchema.safeParse(req.body);
@@ -12,6 +14,22 @@ const createSell = async (req: Request, res: Response) => {
     }
 
     const sell = await sellService.createSell(result.data as Sell);
+
+    sell?.productSells.forEach(async (product) => {
+        const productData = await productsService.findProductById(product.productId);
+
+        if (!productData) {
+            res.status(404).json({ error: 'Product not found' });
+            return;
+        }
+
+        productsService.updateProduct({
+            id: product.productId,
+            stock: productData.stock - product.quantity
+        } as Product)
+    })
+
+
     res.status(201).json(sell);
 }
 

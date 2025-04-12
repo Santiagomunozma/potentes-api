@@ -15,12 +15,12 @@ router.post(
 );
 
 router.put(
-  "/",
+  "/:id",
   async (req: Request, res: Response) => await updateProduct(req, res)
 );
 
 router.delete(
-  "/",
+  "/:id",
   async (req: Request, res: Response) => await deleteProduct(req, res)
 );
 

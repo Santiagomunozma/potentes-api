@@ -35,7 +35,22 @@ const sellService = {
             })
         })
 
-        return newSell;
+        const createdSell = await prisma.sell.findUnique({
+            where: {
+                id: newSell.id,
+            },
+            include: {  
+                customer: true,
+                employee: true,
+                productSells: {
+                    include: {
+                        product: true,
+                    },
+                },
+            },
+        });
+
+        return createdSell;
     },
 
     updateSell: async (data: Sell) => {

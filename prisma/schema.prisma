@@ -56,6 +56,11 @@ model Employee {
 
 model Product {
   id        String   @id @default(cuid()) @map("id")
+  sku       String   @unique @map("sku")
+  status    String   @default("active") @map("status")
+  description String   @map("description")
+  careinstructions String   @map("care_instructions")
+  imageUrl String   @map("image_url")
   name      String   @map("name")
   price     Float    @map("price")
   stock     Int      @map("stock")

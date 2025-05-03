@@ -1,9 +1,13 @@
 type Product = {
-    id?: string;
-    name: string;
-    price: number;
-    stock: number;
-
+  id?: string;
+  sku: string;
+  status: string;
+  name: string;
+  careinstructions: string;
+  imageUrl: string;
+  description: string;
+  price: number;
+  stock: number;
 };
 
 export type { Product };

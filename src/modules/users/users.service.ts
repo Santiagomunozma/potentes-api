@@ -2,78 +2,73 @@ import { prisma } from "../../config/prisma";
 import { User } from "./user.model";
 
 const userService = {
-    findAll: async () => {
-        const users = await prisma.user.findMany(
-            {
-                include: {
-                    customer: true,
-                    employee: true,
-                },
-            }
-        );
-    
-            return users;
-    },
+  findAll: async () => {
+    const users = await prisma.user.findMany({
+      include: {
+        customer: true,
+        employee: true,
+      },
+    });
 
-    createUser: async (data: User) => {
+    return users;
+  },
 
-        const { customer, employee, ...user } = data;
+  createUser: async (data: User) => {
+    const { customer, employee, ...user } = data;
 
-        const newUser = prisma.user.create({
-            data: {
-                ...user,
-                customer: customer ? { create: customer } : undefined,
-                employee: employee ? { create: employee } : undefined,
-            },
-        });
+    const newUser = prisma.user.create({
+      data: {
+        ...user,
+        customer: customer ? { create: customer } : undefined,
+        employee: employee ? { create: employee } : undefined,
+      },
+    });
 
-        return newUser;
-    },
+    return newUser;
+  },
 
-    updateUser: async (data: User) => {
-        const { customer, employee, ...user } = data;
+  updateUser: async (data: User) => {
+    const { customer, employee, ...user } = data;
 
-        const updatedUser = prisma.user.update({
-            where: {
-                id: user.id,
-            },
-            data: {
-                ...user,
-                customer: customer ? { update: customer } : undefined,
-                employee: employee ? { update: employee } : undefined,
-            },
-        });
+    const updatedUser = prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        ...user,
+        customer: customer ? { update: customer } : undefined,
+        employee: employee ? { update: employee } : undefined,
+      },
+    });
 
-        return updatedUser;
-    },
+    return updatedUser;
+  },
 
-    deleteUser: async (data: User) => {
-        const { id } = data;
+  deleteUser: async (data: User) => {
+    const { id } = data;
 
-        const deletedUser = prisma.user.delete({
-            where: {
-                id,
-            },
-        });
+    const deletedUser = prisma.user.delete({
+      where: {
+        id,
+      },
+    });
 
-        return deletedUser;
-    },
+    return deletedUser;
+  },
 
-    findById: async (id: string) => {
-        const user = await prisma.user.findUnique({
-            where: {
-                id,
-            },
-            include: {
-                customer: true,
-                employee: true,
-            },
-        });
+  findById: async (id: string) => {
+    const user = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        customer: true,
+        employee: true,
+      },
+    });
 
-        return user;
-    },
+    return user;
+  },
 };
 
-export {userService};
-
-
+export { userService };

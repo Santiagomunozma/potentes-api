@@ -101,3 +101,14 @@ model Sell {
 
   @@map("sells")
 }
+
+model Coupon {
+  id          String   @id @default(cuid()) @map("id")
+  code        String   @unique @map("code")
+  discount    Float    @map("discount")
+  startDate   DateTime @map("start_date")
+  endDate     DateTime @map("end_date")
+  status      String   @default("active") @map("status")
+
+  @@map("coupons")
+}

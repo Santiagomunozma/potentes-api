@@ -25,6 +25,7 @@ const couponsService = {
 
     return updatedCoupon;
   },
+
   deleteCoupon: async (data: Coupon) => {
     const deletedCoupon = await prisma.coupon.delete({
       where: {
